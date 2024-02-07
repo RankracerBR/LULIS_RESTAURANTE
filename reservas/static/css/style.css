@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(102, 102, 185);
+    font-family: 'Roboto', sans-serif;
+}
+
+.center-text {
+    text-align: center;
+    margin-top: -700px;
+}
