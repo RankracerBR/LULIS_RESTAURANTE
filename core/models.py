@@ -11,6 +11,7 @@ class Usuario(models.Model):
     imagem = models.ImageField(upload_to='imgs/')
 
 class Reserva(models.Model):
+    tickets = models.IntegerField(default=0)
     mesas = models.IntegerField()
     cadeiras = models.IntegerField()
     data = models.DateField(default=date.today)
