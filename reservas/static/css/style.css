@@ -1,14 +1,37 @@
 body {
+    background-image: url('/static/restaurant/restaurante.png'); /* Substitua 'caminho/para/sua/imagem.jpg' pelo caminho real da sua imagem */
+    background-size: cover; /* Isso faz com que a imagem cubra todo o espaço disponível */
+    background-position: center; /* Centraliza a imagem */
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: rgb(102, 102, 185);
     font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(216, 0, 180, 0.8), 0 0 20px rgba(247, 0, 255, 0.8), 0 0 30px rgba(153, 0, 255, 0.8)
 }
 
 .center-text {
     text-align: center;
     margin-top: -700px;
+}
+
+.cadastro, .voltar{
+    position: absolute;
+    top: 10px; 
+    left: 10px; 
+    text-decoration: none;
+    color: #000;
+}
+
+.carousel {
+    width: 60%;
+    overflow: hidden;
+}
+
+.carousel img {
+    width: 60%;
+    height: auto;
+    display: none;
 }
