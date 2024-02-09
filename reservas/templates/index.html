@@ -6,10 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <title>LULIS</title>
-    <h1 class="center-text">BEM-VINDO</h1>
+    <title>Gutos Restaurante</title>
 </head>
 <body>
-    
+    <h1 class="center-text">BEM-VINDO</h1>
+    <div class="cadastro">
+        <a href="{% url 'pagina_cadastro' %}">Cadastrar</a>
+    </div>
+
+    <div id="meuCarrossel" class="carousel">
+        <img src="{% static 'restaurant/restaurantefoto1.webp' %}" alt="Imagem 1">
+        <img src="{% static 'restaurant/restaurantefoto2.webp' %}" alt="Imagem 2">
+    </div>
+    <script src="{% static 'js/carrossel.js' %}"></script>
 </body>
 </html>
