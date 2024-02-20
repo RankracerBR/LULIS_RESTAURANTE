@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <title>Gutos Restaurante</title>
+</head>
+<body>
+    <h1 class="center-text">BEM-VINDO</h1>
+    <div class="cadastro">
+        <a href="{% url 'registrar_token' %}" class="cadastrar">Cadastrar</a>
+    </div>
+    <a href="{% url 'pagina_login' %}" class="login">Fazer Login</a>
+    <div id="meuCarrossel" class="carousel">
+        <img src="{% static 'restaurant/restaurantefoto1.webp' %}" alt="Imagem 1">
+        <img src="{% static 'restaurant/restaurantefoto2.webp' %}" alt="Imagem 2">
+        <img src="{% static 'restaurant/restaurantefoto3.jpg' %}" alt="Imagem 3">
+        <img src="{% static 'restaurant/restaurantefoto4.jpg' %}" alt="Imagem 4">
+    </div>
+    <script src="{% static 'js/carrossel.js' %}"></script>
+</body>
+</html>
