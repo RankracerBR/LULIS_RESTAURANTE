@@ -33,5 +33,10 @@ jobs:
           pip install -r ${{ steps.find_req.outputs.path }}
         if: steps.find_req.outputs.path != ''
 
+      - name: Find manage.py
+        run: find . -name manage.py
+        id: find_manage
+
       - name: Run tests
-        run: python ../../reservas/manage.py test
+        run: python ${{ steps.find_manage.outputs.path }} test
+        if: steps.find_manage.outputs.path != ''
