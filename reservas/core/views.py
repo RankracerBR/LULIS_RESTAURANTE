@@ -1,13 +1,15 @@
+from .forms import UsuarioRegistroForm, RegistroForm, ReservasForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UsuarioRegistroForm, RegistroForm, ReservasForm
 from django.shortcuts import render, redirect
+from core.models import RegistroToken, Mesa, Reserva
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.db.models import Count, Sum
+from django.contrib import messages
 from django.conf import settings
-from core.models import RegistroToken, Mesa
 from datetime import date
 import random
 
@@ -15,6 +17,37 @@ import random
 
 def pagina_principal(request):
     return render(request, 'index.html')
+
+@login_required
+def pagina_pagamento(request):
+    return render(request, 'pagamento.html')
+
+@login_required
+def funcao_logout(request):
+    logout(request)
+    return redirect('pagina_principal')
+
+@login_required
+def pagina_reservas_totais(request):
+    mensagem = []
+    mesas_disponiveis = Mesa.objects.annotate(total_reservas=Count('reserva'))
+
+    for mesa in mesas_disponiveis:
+        if mesa.total_reservas >= mesa.limite_reserva:
+            mensagem.append(f'Limite Atingido para a Mesa: {mesa.numero}')
+
+    return render(request,'reservas_totais.html', 
+                  {'mesas_disponiveis': mesas_disponiveis, 
+                   'mensagem': mensagem} )
+
+@login_required
+def pagina_usuario(request):
+    reservas_usuario = Reserva.objects.filter(usuario=request.user)
+    mesas_alugadas = Mesa.objects.filter(
+                    reserva__in=reservas_usuario).annotate(
+                    total_tickets=Sum('reserva__tickets'))
+    return render(request, 'pagina_usuario.html', 
+                 {'mesas_alugadas': mesas_alugadas})
 
 def pagina_cadastro(request):
     if request.method == 'POST':
@@ -25,6 +58,7 @@ def pagina_cadastro(request):
             return redirect('pagina_principal')
     else:
         form = UsuarioRegistroForm()
+
     return render(request, 'cadastro.html', {'form': form})
 
 def pagina_login(request):
@@ -36,7 +70,7 @@ def pagina_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('pagina_mesas')
+                return redirect('pagina_usuario')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -52,17 +86,23 @@ def pagina_mesas(request):
 
             mesa_escolhida = form.cleaned_data['mesa']
 
-            reserva.valor = mesa_escolhida.preco_aluguel * reserva.tickets
-
-            reserva.save()
-            return redirect('pagina_principal')
-
+            if (mesa_escolhida.reserva_set.count() < 
+                mesa_escolhida.limite_reserva):
+                reserva.valor = mesa_escolhida.preco_aluguel * reserva.tickets
+                if reserva.tickets == 0:
+                    messages.error(request, 'Nenhum ticket foi digitado')
+                    return redirect('pagina_usuario_mesas')
+                reserva.save()
+                return redirect('pagina_usuario')
+            else:
+                messages.error(request, 'Limite de reservas atingido')
+                return redirect('pagina_usuario_mesas')
     else:
         form = ReservasForm()
 
     mesas_disponiveis = Mesa.objects.all()
-    
-    return render(request, 'reservas.html', {'form': form, 'mesas_disponiveis': mesas_disponiveis})
+    return render(request, 'reservas.html', 
+                  {'form': form, 'mesas_disponiveis': mesas_disponiveis})
 
 def registrar_token(request):
     if request.method == 'POST':
@@ -82,7 +122,9 @@ def registrar_token(request):
                 [user.email],
                 fail_silently=False,
             )
-            return HttpResponse('Verifique a caixa de entrada do seu email para confirmar')
+            return HttpResponse(
+                'Verifique a caixa de entrada do seu email para confirmar',
+                )
     else:
         form = RegistroForm()
     return render(request, 'enviar_token.html', {'form': form})
@@ -95,5 +137,3 @@ def verificar(request, token):
         return redirect('pagina_cadastro')
     except RegistroToken.DoesNotExist:
         return render(request, 'cadastro.html')
-
-
