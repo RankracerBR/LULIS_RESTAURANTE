@@ -13,14 +13,21 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from decouple import config
 from dotenv import load_dotenv
 from pathlib import Path
+import sys
 import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env_path = Path(__file__).resolve().parent.parent / 'config' / '.env'
-load_dotenv(env_path)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+ENV_PATH = Path(__file__).resolve().parent.parent / 'config' / '.env'
+
+IMAGE_PATH = Path(__file__).resolve().parent.parent / 'static' / 'media'
+
+sys.path.append(PROJECT_ROOT)
+load_dotenv(ENV_PATH)
 
 DB_NAME = config('DB_NAME')
 DB_USER = config('DB_USER')
@@ -49,7 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core'
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +74,7 @@ ROOT_URLCONF = 'reservas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates_')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,12 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -144,7 +152,25 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#DynamoDB
-# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-# AWS_DEFAULT_REGION = config('AWS_DEFAULT_REGION')
+#DynamoDB/RDS
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_DEFAULT_REGION = config('AWS_DEFAULT_REGION')
+
+
+ADMIN_INTERFACE_SKIN = 'fayal'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(IMAGE_PATH, 'media')
+
+AUTH_USER_MODEL = 'core.Usuario' ####PRA LOGAR NO FORMS TEM QUE USAR ISSO /
+                                 #PORÉM ISSO BUGA E O ADMIN SALVO NÃO LOGA NO SISTEMA 
+
+
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
