@@ -1,21 +1,24 @@
-document.addEventListener("DOMContentLoaded", function () {
-    var carousel = document.getElementById("meuCarrossel");
-    var images = carousel.getElementsByTagName("img");
-    
-    var currentImageIndex = 0;
-    var interval = setInterval(nextImage, 3000);
+$(document).ready(function(){
+    var intervalo = 3000;
+    var currentIndex = 0;
+    var items = $('#meuCarrossel img');
+    var totalItems = items.length;
 
-    function nextImage() {
-        images[currentImageIndex].style.display = "none";
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        images[currentImageIndex].style.display = "block";
+    function mostrarImagem(){
+        items.hide();
+        items.eq(currentIndex).fadeIn();
     }
-    
-    carousel.addEventListener("mouseenter", function () {
-        clearInterval(interval);
-    });
-    
-    carousel.addEventListener("mouseleave", function () {
-        interval = setInterval(nextImage, 2300);
-    });
-});
+
+    function avancaImagem(){
+        mostrarImagem();
+        if(currentIndex < totalItems - 1){
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        } mostrarImagem();
+    }
+
+    mostrarImagem();
+
+    setInterval(avancaImagem, intervalo);
+})
