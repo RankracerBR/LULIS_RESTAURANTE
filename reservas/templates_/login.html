@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <title>Login</title>
 </head>
 <body>
     <div class="voltar">
-        <a href="{% url 'pagina_principal' %}" class="voltar">Voltar</a>
+        <a href="{% url 'pagina_principal' %}" class="voltar"><h2>Voltar</h2></a>
     </div>
-    <h2>Login</h2>
+    <h2 class="loginpage">Login</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

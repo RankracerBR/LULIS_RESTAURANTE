@@ -7,9 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" type="image/png" href="{% static 'ico/G.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <title>Reservas Totais</title>
 </head>
 <body>
-    
+    <div class="voltar">
+        <a href="{% url 'pagina_usuario' %}" class="voltar"><h2>Voltar</h2></a>
+    </div>
+
+    <div class="totalmesas">
+        <h1>Todas as Mesas</h1>
+
+        {% if mensagem %}
+            <ul>
+                {% for mensagens in mensagem %}
+                    <li style="color: red;">{{ mensagens }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <ul>
+            {% for mesa in mesas_disponiveis %}
+                <li>
+                    {{ mesa.numero }} - Preço: R$ {{ mesa.preco_aluguel }},
+                    Limite de Reservas: {{ mesa.limite_reserva }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

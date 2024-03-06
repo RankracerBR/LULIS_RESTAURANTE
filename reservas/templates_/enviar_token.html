@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <a class="voltar" href="{% url 'pagina_principal' %}">Voltar</a>
     <meta="UTF-8">
     <link rel="stylesheet" type="text/css" href={% static "css/style.css" %}>
     <link rel="icon" href="{% static 'imgs/icon.ico' %}" type="image/x-icon">
+    <link rel="icon" type="image/png" href="{% static 'ico/G.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <title>Formulário de Inscrição</title>
     <center>
     <h1>
@@ -15,6 +16,8 @@
 </head>
 
 <body>
+    <a href="{% url 'pagina_principal' %}" class="voltar"><h2>Voltar</h2></a>
+
     <center>
     {% block content %}
     <form action="{% url 'registrar_token' %}" method="POST">

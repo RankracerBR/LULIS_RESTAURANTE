@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" type="image/png" href="{% static 'ico/G.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <title>Sua Conta</title>
+</head>
+<body>
+    <a href="{% url 'logout' %}" class="voltar"><h2>Voltar</h2></a>
+    <a href="{% url 'pagina_usuario_mesas_reservas_totais' %}" class="reservastotais"><h2>Reservas Feitas</h2></a>
+    <a href="{% url 'pagina_usuario_mesas' %}" class="reservamesa"><h2>Reservar Mesa</h2></a>
+    <a href="{% url 'pagamento'%}" class="pagamento"><h2>Pagamentos</h2></a>
+
+    {% if user.is_authenticated %}
+    <div class="profile-container">
+        <p>Olá, {{ user.username }}!</p>
+        {% if user.imagem %}
+            <div class="profile-image">
+                <img src="{{ user.imagem.url }}" alt="Imagem do Usuário">    
+            </div>
+    </div>
+    {% else %}
+        <p>Você não possui uma foto de perfil.</p>
+    {% endif %}
+
+    <div class="mesasalugadas">
+        {% if mesas_alugadas %}
+        <h2>Mesas Alugadas</h2>
+            <ul>
+                {% for mesa in mesas_alugadas %}
+                    <li>{{ mesa.numero }} - R${{ mesa.preco_aluguel }} - {{ mesa.total_tickets }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Você ainda não alugou nenhuma mesa</p>
+        {% endif %}
+    {% else %}
+        <p>Você não está autenticado.</p>
+    {% endif %}
+    </div>
+</body>
+</html>

@@ -6,19 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" type="image/png" href="{% static 'ico/G.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Gutos Restaurante</title>
 </head>
 <body>
     <h1 class="center-text">BEM-VINDO</h1>
     <div class="cadastro">
-        <a href="{% url 'registrar_token' %}" class="cadastrar">Cadastrar</a>
+        <a href="{% url 'registrar_token' %}" class="cadastrar"><h2>Cadastrar</h2></a>
     </div>
-    <a href="{% url 'pagina_login' %}" class="login">Fazer Login</a>
+    <a href="{% url 'pagina_login' %}" class="login"><h2>Fazer Login</h2></a>
     <div id="meuCarrossel" class="carousel">
         <img src="{% static 'restaurant/restaurantefoto1.webp' %}" alt="Imagem 1">
         <img src="{% static 'restaurant/restaurantefoto2.webp' %}" alt="Imagem 2">
         <img src="{% static 'restaurant/restaurantefoto3.jpg' %}" alt="Imagem 3">
         <img src="{% static 'restaurant/restaurantefoto4.jpg' %}" alt="Imagem 4">
+        <img src="{% static 'restaurant/restaurantefoto5.jpg' %}" alt="Imagem 5">
+        <img src="{% static 'restaurant/restaurantefoto6.jpg' %}" alt="Imagem 6">
     </div>
     <script src="{% static 'js/carrossel.js' %}"></script>
 </body>

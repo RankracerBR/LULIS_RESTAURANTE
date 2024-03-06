@@ -6,21 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon" type="image/png" href="{% static 'ico/G.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <title>Reservar Mesas</title>
 </head>
 <body>
+    <a href="{% url 'pagina_usuario' %}" class="voltar"><h2>Voltar</h2></a>
+    <a href="{% url 'pagina_usuario_mesas_reservas_totais' %}" class="reservastotais"><h2>Reservas Feitas</h2></a>
+
     {% block content %}
-    <form method="post" action="{% url 'pagina_mesas' %}">
+    <form method="post" action="{% url 'pagina_usuario_mesas' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Reservar</button>
     </form>
-    <h3>Mesas Disponíveis</h3>
-    <ul>
-        {% for mesa in mesas_disponiveis %}
-        <li>{{ mesa }} - Preço de Aluguel: R$ {{ mesa.preco_aluguel }}</li>
+    <div class="mesasdisponiveis">
+        <h3>Mesas Disponíveis</h3>
+        <ul>
+            {% for mesa in mesas_disponiveis %}
+            <li>{{ mesa }} - Preço de Aluguel: R$ {{ mesa.preco_aluguel }}</li>
+            {% endfor %}
+        </ul>
+        {% endblock %}
+    
+        {% if messages %}
+            <ul class="messages">
+        {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-    </ul>
-    {% endblock %}
+      </ul>
+    {% endif %}
+    </div>
 </body>
 </html>
