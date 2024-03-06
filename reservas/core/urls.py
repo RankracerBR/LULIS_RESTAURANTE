@@ -1,9 +1,6 @@
-from django.views.decorators.csrf import csrf_exempt
-from django_ratelimit.decorators import ratelimit
 from django.conf.urls.static import static
-from django.contrib import admin
-from django.conf import settings
 from django.urls import path, re_path
+from django.conf import settings
 from core import views
 
 urlpatterns = [
@@ -12,9 +9,13 @@ urlpatterns = [
     path('cadastro_usuario/', views.pagina_cadastro, name="pagina_cadastro"),
     path('login/', views.pagina_login, name="pagina_login"),
     path('verify/<str:token>', views.verificar, name='verificar'),
-    #path('logout/'),
-    path('mesas', views.pagina_mesas, name="pagina_mesas"),
-    re_path(r'^\d+/$', views.pagina_principal, name='catch_all')
+    path('pagina_usuario/', views.pagina_usuario, name="pagina_usuario"),
+    path('pagina_usuario/mesas', views.pagina_mesas,
+          name="pagina_usuario_mesas"),
+    path('pagina_usuario/mesas/mesastotais', views.pagina_reservas_totais, 
+         name="pagina_usuario_mesas_reservas_totais"),
+    path('logout', views.funcao_logout, name="logout"),
+    path('pagamento/', views.pagina_pagamento, name="pagamento")
 ]
 
 if settings.DEBUG:
