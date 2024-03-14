@@ -38,5 +38,7 @@ jobs:
         id: find_manage
 
       - name: Run tests
-        run: python ${{ steps.find_manage.outputs.path }} test --verbosity=2
+        run: |
+          cd $(dirname "${{ steps.find_manage.outputs.path }}")
+          python manage.py test --verbosity=2
         if: steps.find_manage.outputs.path != ''
