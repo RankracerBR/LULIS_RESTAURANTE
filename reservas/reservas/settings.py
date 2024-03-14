@@ -22,18 +22,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-ENV_PATH = Path(__file__).resolve().parent.parent / 'config' / '.env'
+# ENV_PATH = Path(__file__).resolve().parent.parent / 'config' / '.env'
 
-IMAGE_PATH = Path(__file__).resolve().parent.parent / 'static' / 'media'
+# IMAGE_PATH = Path(__file__).resolve().parent.parent / 'static' / 'media'
 
-sys.path.append(PROJECT_ROOT)
-load_dotenv(ENV_PATH)
+# sys.path.append(PROJECT_ROOT)
+# load_dotenv(ENV_PATH)
 
-DB_NAME = config('DB_NAME')
-DB_USER = config('DB_USER')
-DB_PASSWORD = config('DB_PASSWORD')
-DB_HOST = config('DB_HOST')
-DB_PORT = config('DB_PORT')
+# DB_NAME = config('DB_NAME')
+# DB_USER = config('DB_USER')
+# DB_PASSWORD = config('DB_PASSWORD')
+# DB_HOST = config('DB_HOST')
+# DB_PORT = config('DB_PORT')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -93,16 +93,16 @@ WSGI_APPLICATION = 'reservas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': DB_NAME,
+#         'USER': DB_USER,
+#         'PASSWORD': DB_PASSWORD,
+#         'HOST': DB_HOST,
+#         'PORT': DB_PORT,
+#     }
+# }
 
 
 # Password validation
@@ -152,25 +152,24 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#DynamoDB/RDS
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_DEFAULT_REGION = config('AWS_DEFAULT_REGION')
+# #DynamoDB/RDS
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_DEFAULT_REGION = config('AWS_DEFAULT_REGION')
 
 
-ADMIN_INTERFACE_SKIN = 'fayal'
+# ADMIN_INTERFACE_SKIN = 'fayal'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(IMAGE_PATH, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(IMAGE_PATH, 'media')
 
-AUTH_USER_MODEL = 'core.Usuario' ####PRA LOGAR NO FORMS TEM QUE USAR ISSO /
-                                 #PORÉM ISSO BUGA E O ADMIN SALVO NÃO LOGA NO SISTEMA 
+# AUTH_USER_MODEL = 'core.Usuario'
 
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+# EMAIL_PORT = config('EMAIL_PORT', cast=int)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
