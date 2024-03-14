@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-# ENV_PATH = Path(__file__).resolve().parent.parent / 'config' / '.env'
+ENV_PATH = Path(__file__).resolve().parent.parent / 'config' / '.env'
 
-# IMAGE_PATH = Path(__file__).resolve().parent.parent / 'static' / 'media'
+IMAGE_PATH = Path(__file__).resolve().parent.parent / 'static' / 'media'
 
 # sys.path.append(PROJECT_ROOT)
 # load_dotenv(ENV_PATH)
