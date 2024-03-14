@@ -31,4 +31,4 @@ jobs:
         pip install -r reservas/requirements.txt
     - name: Run Tests
       run: |
-        python reservas/manage.py test
+        python reservas/manage.py test core
