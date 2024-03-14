@@ -2,43 +2,29 @@ name: Django CI
 
 on:
   push:
-    branches:
-      - restaurante_master
-  
-jobs:
-  test:
-    runs-on: ubuntu-latest
+    branches: [ restaurante_master ]
+  pull_request:
+    branches: [ restaurante_master ]
 
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
     strategy:
+      max-parallel: 4
       matrix:
         python-version: [3.7, 3.8, 3.9]
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set Up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: 'x64'
-
-      - name: Find requirements.txt
-        run: find . -name requirements.txt
-        id: find_req
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ${{ steps.find_req.outputs.path }}
-        if: steps.find_req.outputs.path != ''
-
-      - name: Find manage.py
-        run: find . -name manage.py
-        id: find_manage
-
-      - name: Run tests
-        run: |
-          cd $(dirname "${{ steps.find_manage.outputs.path }}")
-          python manage.py test --verbosity=2
-        if: steps.find_manage.outputs.path != ''
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
