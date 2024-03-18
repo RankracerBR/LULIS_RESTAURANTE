@@ -31,7 +31,8 @@ def funcao_logout(request):
 def pagina_reservas_totais(request):
     mensagem = []
     mesas_disponiveis = Mesa.objects.annotate(total_reservas=Count('reserva'))
-
+    mesas_disponiveis = sorted(mesas_disponiveis, key=lambda mesa: mesa.numero)
+    
     for mesa in mesas_disponiveis:
         if mesa.total_reservas >= mesa.limite_reserva:
             mensagem.append(f'Limite Atingido para a Mesa: {mesa.numero}')
