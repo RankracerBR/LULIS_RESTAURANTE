@@ -1,8 +1,58 @@
-@media only screen and (max-width: 768px){
-    body{
-        background-size: contain;
+body {
+    background-image: url('/static/restaurant/restaurante.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(4, 247, 234, 0.8), 0 0 20px rgba(89, 186, 241, 0.8), 0 0 30px rgba(25, 171, 182, 0.8);
+    transition: background-color 0.2s ease-in-out;
+    animation: transitionIn 1.2s;
+}
+
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: rotateX(-10deg);
     }
-    .center-text{
-        margin-top: -500px;
+    to {
+        opacity: 1;
+        transform: rotateX(0);
+    }
+}
+
+.center-text {
+    text-align: center;
+    font-size: 4em;
+}
+
+/* Posicionamento dos elementos */
+.cadastro, .voltar, .pagamento, .login, .reservastotais, .reservamesa {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+/* Mídia Queries para tornar o layout responsivo */
+@media only screen and (max-width: 768px) {
+    .center-text {
+        font-size: 3em; /* Reduzindo o tamanho da fonte */
+    }
+
+    /* Exemplo de regra de mídia para reposicionar elementos */
+    .cadastro, .voltar, .pagamento, .login, .reservastotais, .reservamesa {
+        position: static; /* Remover a posição absoluta */
+        display: block; /* Alterar o comportamento de exibição */
+        margin: 10px auto; /* Adicionar margem para centralizar */
+        text-align: center; /* Centralizar o texto */
+    }
+    
+    /* Ajustes específicos para outros elementos conforme necessário */
+    .carousel img {
+        width: 100%; /* Ajustar a largura da imagem */
+        margin-left: 0; /* Resetar a margem */
     }
 }
