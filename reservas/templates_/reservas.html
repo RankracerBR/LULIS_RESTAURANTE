@@ -13,13 +13,17 @@
 <body>
     <a href="{% url 'pagina_usuario' %}" class="voltar"><h2>Voltar</h2></a>
     <a href="{% url 'pagina_usuario_mesas_reservas_totais' %}" class="reservastotais"><h2>Reservas Feitas</h2></a>
+    <img class="imagemmesas" src="{% static 'restaurant/MESAS_FOTO.png'%}">
 
     {% block content %}
-    <form method="post" action="{% url 'pagina_usuario_mesas' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Reservar</button>
-    </form>
+    <div class="reserva">
+        <form method="post" action="{% url 'pagina_usuario_mesas' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Reservar</button>
+        </form>
+    </div>
+
     <div class="mesasdisponiveis">
         <h3>Mesas Disponíveis</h3>
         <ul>

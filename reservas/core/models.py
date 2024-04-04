@@ -5,7 +5,7 @@ from datetime import date
 # Create your models here.
 
 class Usuario(AbstractUser):
-    idade = models.IntegerField(default=0)
+    idade = models.PositiveIntegerField(default=0)
     imagem = models.ImageField(upload_to='imgs/', default="Imagens")
     
     def __str__(self):
@@ -23,9 +23,9 @@ class RegistroToken(models.Model):
     token = models.CharField(max_length=100, default='token')
 
 class Mesa(models.Model):
-    numero = models.IntegerField(unique=True)
-    preco_aluguel = models.IntegerField()
-    limite_reserva = models.IntegerField(default=0)
+    numero = models.PositiveIntegerField(unique=True)
+    preco_aluguel = models.PositiveIntegerField()
+    limite_reserva = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'Mesa {self.numero}'
@@ -35,7 +35,7 @@ class Mesa(models.Model):
 
 class Reserva(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    tickets = models.IntegerField(default=0)
+    tickets = models.PositiveIntegerField(default=0)
     mesa = models.ForeignKey(Mesa,on_delete=models.CASCADE)
     data = models.DateField(default=date.today)
 
